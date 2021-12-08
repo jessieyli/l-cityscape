@@ -1,3 +1,5 @@
+import { Noise } from 'noisejs'
+
 // Constants.
 export const PHI = 1.618
 export const NOISE_RATIO = 0.05
@@ -11,10 +13,10 @@ export const COLOR_SEED = 47
 export const HEIGHT_SEED = 29
 export const COLOR_BASE = 0.05
 
-// Get base noise. TODO: Use perlin noise.
+// Get base noise.
 export function getBase(x, y, seed) {
-  const val = Math.sin(COLOR_BASE * x) * Math.sin(COLOR_BASE * y + seed)
-  return val / 2.0 + 1.0
+  const noise = new Noise(seed)
+  return (noise.simplex2(x / 100, y / 100) + 1) / 2
 }
 
 // Get random noise using murmurhash.
