@@ -1,6 +1,6 @@
+// Constants.
 export const PHI = 1.618
 export const NOISE_RATIO = 0.05
-
 export const THEMES = {
   GOTHIC: { s: 0.2, l: 0.2 },
   PASTEL: { s: 0.2, l: 0.8 },
@@ -11,11 +11,13 @@ export const COLOR_SEED = 47
 export const HEIGHT_SEED = 29
 export const COLOR_BASE = 0.05
 
+// Get base noise. TODO: Use perlin noise.
 export function getBase(x, y, seed) {
   const val = Math.sin(COLOR_BASE * x) * Math.sin(COLOR_BASE * y + seed)
   return val / 2.0 + 1.0
 }
 
+// Get random noise using murmurhash.
 export function getNoise(x, y, p) {
   const str = '' + x + ('' + y) + ('' + p)
   for (var i = 0, h = 1779033703 ^ str.length; i < str.length; i++)
@@ -27,6 +29,7 @@ export function getNoise(x, y, p) {
   })()
 }
 
+// Get primary color.
 export function getPrimaryColor(x, y, s, l) {
   const base = getBase(x, y, COLOR_SEED)
   const noise = getNoise(x, y, COLOR_SEED)
@@ -35,6 +38,7 @@ export function getPrimaryColor(x, y, s, l) {
   return hslStr
 }
 
+// Get secondary color.
 export function getSecondaryColor(x, y, s, l) {
   const base = getBase(x, y, COLOR_SEED)
   const noise = getNoise(x, y, COLOR_SEED)
@@ -43,6 +47,7 @@ export function getSecondaryColor(x, y, s, l) {
   return hslStr
 }
 
+// Convert HSL values to string.
 export function hsl2string(h, s, l) {
   return `hsl(${Math.round(h * 255)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`
 }

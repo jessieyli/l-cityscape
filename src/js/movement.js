@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 
+// Generate a zero vector.
 const zeroVec3 = () => new THREE.Vector3(0, 0, 0)
 
 // Movement Properties (Physics)
